@@ -14,7 +14,7 @@
     </dependencies>
     <navigation>
         <name>Stock</name>
-        <route>nextcloud-microstock-dam.page.index</route>
+        <route>nextcloud-microstock-dam.Page.index</route>
         <icon>icon-folder</icon>
         <order>10</order>
     </navigation>
