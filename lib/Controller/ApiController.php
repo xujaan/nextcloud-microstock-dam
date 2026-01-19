@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace OCA\NextcloudMicrostockDam\Controller;
+namespace OCA\Assets\Controller;
 
-use OCA\NextcloudMicrostockDam\AppInfo\Application;
+use OCA\Assets\AppInfo\Application;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;

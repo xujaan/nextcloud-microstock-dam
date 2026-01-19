@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
-    <id>nextcloud-microstock-dam</id>
+    <id>assets</id>
     <name>Stock</name>
     <summary>Microstock Digital Asset Management</summary>
     <description><![CDATA[
@@ -11,7 +11,7 @@ A simple asset management tool treating folders as assets.
     <version>1.0.0</version>
     <licence>agpl</licence>
     <author>Gemini</author>
-    <namespace>NextcloudMicrostockDam</namespace>
+    <namespace>Assets</namespace>
     <category>multimedia</category>
     <dependencies>
         <nextcloud min-version="29" max-version="32"/>
@@ -19,7 +19,7 @@ A simple asset management tool treating folders as assets.
     <navigations>
         <navigation>
             <name>Stock</name>
-            <route>nextcloud-microstock-dam.Page.index</route>
+            <route>assets.Page.index</route>
         </navigation>
     </navigations>
     <repair-steps>

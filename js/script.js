@@ -11,7 +11,7 @@
 
     grid.innerHTML = '<div class="loading"></div>';
 
-    const url = OC.generateUrl("/apps/nextcloud-microstock-dam/api/list");
+    const url = OC.generateUrl("/apps/assets/api/list");
 
     fetch(url + "?path=" + encodeURIComponent(path))
       .then((response) => response.json())
@@ -61,7 +61,7 @@
     modalContent.innerHTML = '<div class="loading">Loading details...</div>';
 
     // Fetch files in folder
-    const url = OC.generateUrl("/apps/nextcloud-microstock-dam/api/files");
+    const url = OC.generateUrl("/apps/assets/api/files");
     fetch(url + "?path=" + encodeURIComponent(asset.path))
       .then((res) => res.json())
       .then((files) => {
@@ -152,9 +152,7 @@
     }
 
     // 1. Create Folder
-    const createUrl = OC.generateUrl(
-      "/apps/nextcloud-microstock-dam/api/folder",
-    );
+    const createUrl = OC.generateUrl("/apps/assets/api/folder");
     const formData = new FormData();
     formData.append("path", "/"); // Root for now
     formData.append("name", folderName);
@@ -168,9 +166,7 @@
       const targetPath = data.path; // e.g. "MyNewAsset"
 
       // 2. Upload Files
-      const uploadUrl = OC.generateUrl(
-        "/apps/nextcloud-microstock-dam/api/upload",
-      );
+      const uploadUrl = OC.generateUrl("/apps/assets/api/upload");
 
       for (const file of window.uploadFiles) {
         const fData = new FormData();
