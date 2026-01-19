@@ -1,0 +1,20 @@
+{
+    "name": "nextcloud/assets",
+    "description": "Microstock DAM for Nextcloud",
+    "version": "1.0.0",
+    "type": "nextcloud-app",
+    "license": "AGPL",
+    "authors": [
+        {
+            "name": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "OCA\\Assets\\": "lib/"
+        }
+    }
+}

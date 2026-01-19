@@ -25,6 +25,9 @@ class PageController extends Controller
         // Load our custom script and style
         \OCP\Util::addScript(Application::APP_ID, 'script');
         \OCP\Util::addStyle(Application::APP_ID, 'style');
+        
+        // Log that we loaded assets to confirm PageController ran
+        \OCP\Util::writeLog(Application::APP_ID, 'PageController loaded script and style for Assets app', \OCP\Util::INFO);
 
         return new TemplateResponse(Application::APP_ID, 'main');
     }
