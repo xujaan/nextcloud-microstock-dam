@@ -1,0 +1,2 @@
+(()=>{"use strict";!async function(){var o,c;const e=null!==(c=await(null===(o=window.caches)||void 0===o?void 0:o.keys()))&&void 0!==c?c:[];for(const o of e)o.match(/^memories-/)&&window.caches.delete(o)}()})();
+//# sourceMappingURL=memories-hooks-clear-cache.js.map?v=2b530dc6718824f93570
