@@ -22,15 +22,5 @@ A simple asset management tool treating folders as assets.
             <route>assets.Page.index</route>
         </navigation>
     </navigations>
-    <repair-steps>
-        <post-migration>
-            <step>OCA\Memories\Migration\Repair</step>
-        </post-migration>
-        <install>
-            <step>OCA\Memories\Migration\Repair</step>
-        </install>
-    </repair-steps>
-    <background-jobs>
-        <job>OCA\Memories\Cron\IndexJob</job>
-    </background-jobs>
+
 </info>
