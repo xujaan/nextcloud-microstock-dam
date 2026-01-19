@@ -14,7 +14,8 @@ class ApiController extends Controller {
     public function __construct($AppName, IRequest $request, IRootFolder $rootFolder, IUserSession $userSession) {
         parent::__construct($AppName, $request);
         $this->rootFolder = $rootFolder;
-        $this->userId = $userSession->getUser()->getUID();
+        $user = $userSession->getUser();
+        $this->userId = $user ? $user->getUID() : null;
     }
 
     /**
