@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<info>
+    <id>assets</id>
+    <name>Microstock Assets</name>
+    <summary>View folders as bundled assets (JPG+EPS+AI)</summary>
+    <description>Simple DAM view for grouping files by filename.</description>
+    <version>1.0.0</version>
+    <licence>agpl</licence>
+    <author>Gemini AI</author>
+    <namespace>Assets</namespace>
+    <category>multimedia</category>
+    <dependencies>
+        <nextcloud min-version="25" max-version="30"/>
+    </dependencies>
+    <navigation>
+        <name>Assets</name>
+        <route>assets.page.index</route>
+        <icon>icon-folder</icon>
+        <order>10</order>
+    </navigation>
+</info>
