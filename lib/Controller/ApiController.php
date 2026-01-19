@@ -77,7 +77,8 @@ class ApiController extends Controller
 
             return new DataResponse(array_values($folders));
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            \OCP\Util::writeLog(Application::APP_ID, $e->getMessage() . ' Trace: ' . $e->getTraceAsString(), \OCP\Util::ERROR);
             return new DataResponse(['error' => $e->getMessage()], 500);
         }
     }
@@ -124,7 +125,8 @@ class ApiController extends Controller
 
             return new DataResponse($files);
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            \OCP\Util::writeLog(Application::APP_ID, $e->getMessage(), \OCP\Util::ERROR);
             return new DataResponse(['error' => $e->getMessage()], 500);
         }
     }
@@ -149,7 +151,8 @@ class ApiController extends Controller
             } else {
                 return new DataResponse(['error' => 'Folder already exists'], 409);
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            \OCP\Util::writeLog(Application::APP_ID, $e->getMessage(), \OCP\Util::ERROR);
             return new DataResponse(['error' => $e->getMessage()], 500);
         }
     }
@@ -190,7 +193,8 @@ class ApiController extends Controller
             
             return new DataResponse(['status' => 'success', 'file' => $filename]);
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            \OCP\Util::writeLog(Application::APP_ID, $e->getMessage(), \OCP\Util::ERROR);
             return new DataResponse(['error' => $e->getMessage()], 500);
         }
     }

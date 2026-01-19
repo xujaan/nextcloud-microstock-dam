@@ -35,9 +35,12 @@
     const url = getApiUrl("/list");
 
     fetch(url + "?path=" + encodeURIComponent(path))
-      .then((response) => {
-        if (!response.ok) throw new Error("HTTP " + response.status);
-        return response.json();
+      .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || "HTTP " + response.status);
+        }
+        return data;
       })
       .then((data) => {
         grid.innerHTML = "";
