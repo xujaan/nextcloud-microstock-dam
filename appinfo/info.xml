@@ -13,8 +13,8 @@
         <nextcloud min-version="25" max-version="30"/>
     </dependencies>
     <navigation>
-        <name>Assets</name>
-        <route>assets.page.index</route>
+        <name>Stock</name>
+        <route>nextcloud-microstock-dam.page.index</route>
         <icon>icon-folder</icon>
         <order>10</order>
     </navigation>

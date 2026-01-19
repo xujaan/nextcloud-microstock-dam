@@ -6,7 +6,7 @@ style('nextcloud-microstock-dam', 'style');
 <div id="app-content">
     <div id="app-navigation">
         <div class="nav-header">
-            <h2>Assets</h2>
+            <h2>Stock</h2>
         </div>
         <ul class="with-icon">
             <li><a href="#" class="active" onclick="window.loadAssets && window.loadAssets('/'); return false;">All Assets</a></li>
