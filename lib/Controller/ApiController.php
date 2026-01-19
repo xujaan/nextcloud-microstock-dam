@@ -9,9 +9,7 @@ use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\DataResponse;
-use OCP\Files\IRootFolder;
 use OCP\IRequest;
-use OCP\IUserSession;
 
 class ApiController extends Controller
 {
@@ -26,10 +24,10 @@ class ApiController extends Controller
     {
         return new DataResponse([
             [
-                'name' => 'Debug Folder', 
-                'path' => '/Debug', 
-                'preview' => '', 
-                'fileCount' => 0, 
+                'name' => 'Debug Folder',
+                'path' => '/Debug',
+                'preview' => '',
+                'fileCount' => 99,
                 'isFolder' => true
             ]
         ]);
@@ -46,20 +44,20 @@ class ApiController extends Controller
     #[NoCSRFRequired]
     public function createFolder(string $path, string $name): DataResponse
     {
-        return new DataResponse(['status' => 'success', 'path' => $name]);
+        return new DataResponse(['status' => 'success']);
     }
 
     #[NoAdminRequired]
     #[NoCSRFRequired]
     public function uploadFile(string $path): DataResponse
     {
-         return new DataResponse(['status' => 'success', 'file' => 'debug']);
+        return new DataResponse(['status' => 'success']);
     }
 
     #[NoAdminRequired]
     #[NoCSRFRequired]
     public function downloadPackage(string $path): DataResponse
     {
-         return new DataResponse(['status' => 'not_implemented']);
+        return new DataResponse(['status' => 'not_implemented']);
     }
 }
