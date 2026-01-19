@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <info>
-    <id>assets</id>
+    <id>nextcloud-microstock-dam</id>
     <name>Microstock Assets</name>
     <summary>View folders as bundled assets (JPG+EPS+AI)</summary>
     <description>Simple DAM view for grouping files by filename.</description>

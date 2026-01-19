@@ -50,7 +50,7 @@ function loadAssets(path) {
     '<div class="loading"><div class="spinner"></div><p>Loading assets...</p></div>';
 
   const url =
-    OC.generateUrl("/apps/assets/api/list") +
+    OC.generateUrl("/apps/nextcloud-microstock-dam/api/list") +
     "?path=" +
     encodeURIComponent(path);
 
@@ -127,7 +127,7 @@ function loadAssetFiles(asset) {
   list.innerHTML = '<div class="loading-small">Fetching files...</div>';
   const assetPath = (currentPath === "/" ? "" : currentPath) + "/" + asset.name;
   const url =
-    OC.generateUrl("/apps/assets/api/files") +
+    OC.generateUrl("/apps/nextcloud-microstock-dam/api/files") +
     "?path=" +
     encodeURIComponent(assetPath);
   fetch(url)
@@ -205,7 +205,7 @@ window.startUpload = async function () {
   btn.innerText = "Creating folder...";
 
   // 1. Create Folder
-  const createUrl = OC.generateUrl("/apps/assets/api/folder");
+  const createUrl = OC.generateUrl("/apps/nextcloud-microstock-dam/api/folder");
   let folderPath = "";
 
   try {
@@ -235,7 +235,7 @@ window.startUpload = async function () {
       formData.append("file", file);
 
       const uploadUrl =
-        OC.generateUrl("/apps/assets/api/upload") +
+        OC.generateUrl("/apps/nextcloud-microstock-dam/api/upload") +
         "?path=" +
         encodeURIComponent(folderPath);
 

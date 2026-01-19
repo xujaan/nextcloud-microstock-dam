@@ -1,6 +1,6 @@
 <?php
-script('assets', 'script');
-style('assets', 'style');
+script('nextcloud-microstock-dam', 'script');
+style('nextcloud-microstock-dam', 'style');
 ?>
 
 <div id="app-content">
