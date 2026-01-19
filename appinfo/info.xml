@@ -7,7 +7,7 @@
     <version>1.0.0</version>
     <licence>agpl</licence>
     <author>Gemini AI</author>
-    <namespace>Assets</namespace>
+    <namespace>NextcloudMicrostockDam</namespace>
     <category>multimedia</category>
     <dependencies>
         <nextcloud min-version="25" max-version="30"/>

@@ -1,29 +1,43 @@
 <?php
-namespace OCA\Assets\Controller;
 
+declare(strict_types=1);
+
+namespace OCA\NextcloudMicrostockDam\Controller;
+
+use OCA\NextcloudMicrostockDam\AppInfo\Application;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\Files\IRootFolder;
 use OCP\IRequest;
 use OCP\IUserSession;
 
-class ApiController extends Controller {
-    private $rootFolder;
-    private $userId;
+class ApiController extends Controller
+{
+    private IRootFolder $rootFolder;
+    private ?string $userId = null;
 
-    public function __construct($AppName, IRequest $request, IRootFolder $rootFolder, IUserSession $userSession) {
-        parent::__construct($AppName, $request);
+    public function __construct(
+        IRequest $request,
+        IRootFolder $rootFolder,
+        IUserSession $userSession
+    ) {
+        parent::__construct(Application::APP_ID, $request);
         $this->rootFolder = $rootFolder;
         $user = $userSession->getUser();
         $this->userId = $user ? $user->getUID() : null;
     }
 
-    /**
-     * @NoCSRFRequired
-     * @NoAdminRequired
-     */
-    public function listAssets($path = '/') {
+    #[NoAdminRequired]
+    #[NoCSRFRequired]
+    public function listAssets(string $path = '/'): DataResponse
+    {
         try {
+            if (!$this->userId) {
+                return new DataResponse(['error' => 'User not logged in'], 401);
+            }
+
             $userFolder = $this->rootFolder->getUserFolder($this->userId);
             
             if (!$userFolder->nodeExists($path)) {
@@ -43,20 +57,18 @@ class ApiController extends Controller {
                 
                 foreach ($subChildren as $sub) {
                     $fileCount++;
-                    // Find first image for preview
                     if (empty($preview) && $this->isImage($sub)) {
                         $preview = $this->generatePreviewUrl($sub);
                     }
                 }
 
-                // If no image found, use default icon
                 if (empty($preview)) {
                     $preview = '/core/img/filetypes/folder.svg'; 
                 }
 
                 $folders[] = [
                     'name' => $child->getName(),
-                    'path' => $child->getPath(), // Relative to user folder basically
+                    'path' => $child->getPath(),
                     'preview' => $preview,
                     'fileCount' => $fileCount,
                     'isFolder' => true
@@ -70,12 +82,15 @@ class ApiController extends Controller {
         }
     }
 
-    /**
-     * @NoCSRFRequired
-     * @NoAdminRequired
-     */
-    public function getFiles($path = '/') {
+    #[NoAdminRequired]
+    #[NoCSRFRequired]
+    public function getFiles(string $path = '/'): DataResponse
+    {
         try {
+            if (!$this->userId) {
+                return new DataResponse(['error' => 'User not logged in'], 401);
+            }
+
             $userFolder = $this->rootFolder->getUserFolder($this->userId);
             
             if (!$userFolder->nodeExists($path)) {
@@ -93,13 +108,13 @@ class ApiController extends Controller {
                 if ($this->isImage($child)) {
                     $preview = $this->generatePreviewUrl($child);
                 } else {
-                    $preview = '/core/img/filetypes/file.svg'; // Simplified
+                    $preview = '/core/img/filetypes/file.svg';
                 }
 
                 $files[] = [
                     'id' => $child->getId(),
                     'name' => $child->getName(),
-                    'size' => $this->human_filesize($child->getSize()),
+                    'size' => $this->humanFilesize($child->getSize()),
                     'ext' => strtolower(pathinfo($child->getName(), PATHINFO_EXTENSION)),
                     'url' => '/remote.php/webdav' . $child->getPath(),
                     'preview' => $preview,
@@ -114,15 +129,17 @@ class ApiController extends Controller {
         }
     }
 
-    /**
-     * @NoCSRFRequired
-     * @NoAdminRequired
-     */
-    public function createFolder($path, $name) {
+    #[NoAdminRequired]
+    #[NoCSRFRequired]
+    public function createFolder(string $path, string $name): DataResponse
+    {
         try {
+            if (!$this->userId) {
+                return new DataResponse(['error' => 'User not logged in'], 401);
+            }
+
             $userFolder = $this->rootFolder->getUserFolder($this->userId);
             
-            // Normalize path
             $fullPath = $path . '/' . $name;
             $fullPath = trim($fullPath, '/');
             
@@ -137,40 +154,21 @@ class ApiController extends Controller {
         }
     }
 
-    /**
-     * @NoCSRFRequired
-     * @NoAdminRequired
-     */
-    public function uploadFile($path, $file = null) {
+    #[NoAdminRequired]
+    #[NoCSRFRequired]
+    public function uploadFile(string $path): DataResponse
+    {
         try {
+            if (!$this->userId) {
+                return new DataResponse(['error' => 'User not logged in'], 401);
+            }
+
             $userFolder = $this->rootFolder->getUserFolder($this->userId);
             
             if (!$userFolder->nodeExists($path)) {
                 return new DataResponse(['error' => 'Target folder not found'], 404);
             }
 
-            // In Nextcloud AppFramework, uploaded files are usually available in $this->request->getUploadedFile('file')
-            // But since we use generic $_FILES argument name matching in signature?
-            // Let's use standard PHP $_FILES if the argument binding is tricky or rely on $request.
-            // Actually, best practice is to depend on IRequest. 
-            // In the signature `uploadFile($path)`, if we POST 'file', valid OC controller should handle it,
-            // but let's look at how we get the file content.
-            
-            // We'll iterate $_FILES to be safe or use $this->request
-            $files = $this->request->getUploadedFile('file'); // 'file' is the form field name
-            
-            if (!$files) {
-                 return new DataResponse(['error' => 'No file uploaded'], 400);
-            }
-
-            $targetFolder = $userFolder->get($path);
-            $filename = $files['name']; // Nextcloud UploadedFile wrapper array or object?
-            // Actually getUploadedFile returns array-like or IUploadedFile?
-            // Let's assume standard PHP $_FILES behavior first or check OCP docs.
-            // Simplified: Use $this->request->getUploadedFile('file');
-            // If it returns null, check $_FILES.
-            
-            // Fix: generic way
             if (empty($_FILES['file'])) {
                 return new DataResponse(['error' => 'No file data'], 400);
             }
@@ -178,10 +176,7 @@ class ApiController extends Controller {
             $uploadedFile = $_FILES['file'];
             $filename = $uploadedFile['name'];
             $tempPath = $uploadedFile['tmp_name'];
-            
-            // Check if file exists, if so auto-rename or overwrite?
-            // Let's overwrite or skip.
-            // Safest: $targetFolder->newFile($filename);
+            $targetFolder = $userFolder->get($path);
             
             $fileNode = null;
             if ($targetFolder->nodeExists($filename)) {
@@ -190,7 +185,6 @@ class ApiController extends Controller {
                 $fileNode = $targetFolder->newFile($filename);
             }
             
-            // Write content
             $content = file_get_contents($tempPath);
             $fileNode->putContent($content);
             
@@ -201,40 +195,30 @@ class ApiController extends Controller {
         }
     }
 
-    private function isImage($node) {
+    #[NoAdminRequired]
+    #[NoCSRFRequired]
+    public function downloadPackage(string $path): DataResponse
+    {
+         return new DataResponse(['status' => 'not_implemented_use_webdav']);
+    }
+
+    private function isImage($node): bool
+    {
         $mime = $node->getMimetype();
         return strpos($mime, 'image/') === 0;
     }
 
-    private function generatePreviewUrl($node) {
+    private function generatePreviewUrl($node): string
+    {
         return '/core/preview?fileId=' . $node->getId() . '&x=400&y=400&a=true';
     }
 
-    private function human_filesize($bytes, $decimals = 2) {
+    private function humanFilesize($bytes, $decimals = 2): string
+    {
         $sz = 'BKMGTP';
-        $factor = floor((strlen($bytes) - 1) / 3);
+        $factor = floor((strlen((string)$bytes) - 1) / 3);
+        // Fix for 0 bytes
+        if ($bytes <= 0) return '0B';
         return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor];
-    }
-    
-    /**
-     * @NoCSRFRequired
-     * @NoAdminRequired
-     */
-    public function downloadPackage($path) {
-         // Return a download URL for the folder
-         // Since implementing zip streaming is complex, we instruct frontend to use existing Nextcloud endpoints
-         // or we can redirect
-         $userFolder = $this->rootFolder->getUserFolder($this->userId);
-         if (!$userFolder->nodeExists($path)) {
-             return new DataResponse(['error' => 'Path not found'], 404);
-         }
-         
-         $node = $userFolder->get($path);
-         // This is a naive way, but Nextcloud usually allows downloading a folder via /index.php/apps/files/ajax/download.php?dir=...
-         // But the proper way for an API might be different.
-         // For now, let's just return the path so frontend can construct the link?
-         // Or just don't implement this if frontend handles it via OC.generateUrl
-         
-         return new DataResponse(['status' => 'not_implemented_use_webdav']);
     }
 }
