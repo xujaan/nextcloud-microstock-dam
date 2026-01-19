@@ -15,6 +15,6 @@ class PageController extends Controller {
      * @NoAdminRequired
      */
     public function index() {
-        return new TemplateResponse('assets', 'main');
+        return new TemplateResponse('nextcloud-microstock-dam', 'main');
     }
 }
