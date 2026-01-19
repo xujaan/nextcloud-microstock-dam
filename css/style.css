@@ -1,0 +1,204 @@
+/* Main Layout */
+#app-content {
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+    background-color: var(--color-main-background);
+}
+
+.nav-header h2 {
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Grid */
+.asset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding-bottom: 50px;
+}
+
+.asset-card {
+    background: var(--color-main-background);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.asset-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-color: var(--color-primary);
+}
+
+.asset-preview {
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--color-background-dark);
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+.file-count-badge {
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    backdrop-filter: blur(4px);
+}
+
+.asset-info {
+    padding: 12px;
+}
+
+.asset-name {
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Modals */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-container {
+    background: var(--color-main-background);
+    width: 80%;
+    max-width: 1000px;
+    max-height: 90vh;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 { margin: 0; font-size: 18px; }
+
+.modal-content-body {
+    padding: 0;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-split {
+    display: flex;
+    height: 100%;
+}
+
+.modal-preview-large {
+    flex: 2;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.hero-image {
+    max-width: 100%;
+    max-height: 500px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    border-radius: 4px;
+}
+
+.modal-metadata {
+    flex: 1;
+    padding: 20px;
+    border-left: 1px solid var(--color-border);
+    background: var(--color-main-background);
+    display: flex;
+    flex-direction: column;
+}
+
+.file-list {
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.file-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.file-details {
+    flex: 1;
+    overflow: hidden;
+}
+
+.file-name {
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-meta {
+    font-size: 11px;
+    color: var(--color-text-maxcontrast);
+}
+
+.btn-icon {
+    padding: 5px;
+    color: var(--color-text-maxcontrast);
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.upload-area {
+    border: 2px dashed var(--color-border);
+    padding: 40px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background 0.2s;
+}
+
+.upload-area:hover {
+    background: var(--color-background-hover);
+    border-color: var(--color-primary);
+}
