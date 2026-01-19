@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'OCA\\Assets\\' => array($baseDir . '/lib'),
+    'OCA\\Stock\\' => array($baseDir . '/lib'),
 );
