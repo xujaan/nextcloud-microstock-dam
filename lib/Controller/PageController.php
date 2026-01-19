@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace OCA\Assets\Controller;
+namespace OCA\Stock\Controller;
 
-use OCA\Assets\AppInfo\Application;
+use OCA\Stock\AppInfo\Application;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
@@ -27,7 +27,7 @@ class PageController extends Controller
         \OCP\Util::addStyle(Application::APP_ID, 'style');
         
         // Log that we loaded assets to confirm PageController ran
-        \OCP\Util::writeLog(Application::APP_ID, 'PageController loaded script and style for Assets app', \OCP\Util::INFO);
+        \OCP\Util::writeLog(Application::APP_ID, 'PageController loaded script and style for Stock app', \OCP\Util::INFO);
 
         return new TemplateResponse(Application::APP_ID, 'main');
     }

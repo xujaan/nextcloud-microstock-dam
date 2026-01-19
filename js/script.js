@@ -2,7 +2,7 @@
   console.log("Stock App: Loading...");
 
   // Constants
-  const APP_ID = "assets";
+  const APP_ID = "stock";
   const API_BASE = "/apps/" + APP_ID + "/api";
 
   // State

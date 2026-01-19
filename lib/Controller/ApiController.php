@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace OCA\Assets\Controller;
+namespace OCA\Stock\Controller;
 
-use OCA\Assets\AppInfo\Application;
+use OCA\Stock\AppInfo\Application;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;

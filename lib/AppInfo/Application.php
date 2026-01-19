@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OCA\Assets\AppInfo;
+namespace OCA\Stock\AppInfo;
 
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
@@ -11,7 +11,7 @@ use OCP\AppFramework\Bootstrap\IRegistrationContext;
 
 class Application extends App implements IBootstrap
 {
-    public const APP_ID = 'assets';
+    public const APP_ID = 'stock';
 
     public function __construct()
     {

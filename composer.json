@@ -1,5 +1,5 @@
 {
-    "name": "nextcloud/assets",
+    "name": "nextcloud/stock",
     "description": "Microstock DAM for Nextcloud",
     "version": "1.0.0",
     "type": "nextcloud-app",
@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "OCA\\Assets\\": "lib/"
+            "OCA\\Stock\\": "lib/"
         }
     }
 }
